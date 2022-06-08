@@ -9,12 +9,10 @@ public class Sales {
     public static Map<String, Long> getSalesMap(Reader reader) {
         Map<String, Long> returnedMap = new HashMap<>();
         Scanner scan = new Scanner(reader);
-        String key = null;
-        Long value = 0L;
+        String key;
+        Long value;
         while (scan.hasNext()) {
-            key = scan.next();
-            value = scan.nextLong();
-            returnedMap.merge(key, value, (oldvalue, newvalue) -> oldvalue + newvalue);
+            returnedMap.merge(key = scan.next(), value = scan.nextLong(), Long::sum);
         }
         return returnedMap;
     }

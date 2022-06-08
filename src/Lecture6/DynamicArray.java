@@ -8,28 +8,20 @@ public class DynamicArray <T> {
     private Object [] changingArray = (T[])new Object[10];
     private int size = 0;
 
-    public DynamicArray() {
-
-    }
-
     public void add(T el) {
         if (size >= changingArray.length) {
-            changingArray = Arrays.copyOf(changingArray, changingArray.length * 10);
+            changingArray = Arrays.copyOf(changingArray, changingArray.length * 2);
         }
-        changingArray[size] = el;
-        size++;
+        changingArray[size++] = el;
     }
 
     public void remove(int index) {
         if ((index < size) & (index >= 0)) {
-            for (int i = index + 1; i < changingArray.length; i++) {
-                changingArray [i - 1] = (T) changingArray[i];
-            }
+            System.arraycopy(changingArray, index + 1, changingArray, index, size - index -1);
             size--;
         } else {
             throw new ArrayIndexOutOfBoundsException();
         }
-
     }
 
     public T get(int index) {
@@ -52,19 +44,17 @@ class TestDynamicArray{
         someArray.add("it");
         someArray.add("works");
         someArray.add(".");
+        someArray.add("I'll try again");
         someArray.add("Otherwise");
         someArray.add("this");
         someArray.add("would");
         someArray.add("be");
         someArray.add("sad");
         someArray.add(":(");
-        System.out.println(someArray.get(12));
-        System.out.println(someArray.get(1));
-        someArray.remove(1);
-        System.out.println(someArray.get(1));
-        System.out.println(someArray.get(12));
-        System.out.println(someArray.get(11));
-        System.out.println(someArray.get(250));
+        System.out.println(someArray.get(7));
+        someArray.remove(7);
+        System.out.println(someArray.get(7));
+
 
         DynamicArray<Integer> someOtherArray = new DynamicArray<>();
         someOtherArray.add(7);
